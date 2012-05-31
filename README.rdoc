@@ -2,7 +2,7 @@
 
 I wanted to see the performance of Delayed Job w/ Postgres ActiveRecord backend vs Resque backed with Redis.
 
-There are two branches in the project.
+There are three branches in the project.
 
 == To test Delayed Job:
 
@@ -18,6 +18,14 @@ There are two branches in the project.
     $ rails c
     $ >> TestRunner.run(RQ, 10000)
 
+== To test Resque with the Resque Jobs Per Fork plugin:
+
+    $ git checkout resque-jobs-per-fork
+    $ QUEUE=* JOBS_PER_FORK=5 rake environment resque:work
+    $ rails c
+    $ >> TestRunner.run(RQ, 10000)
+
+
 == Read Your Results
 
 Look at your logs, and find the "Starting" entry
@@ -29,10 +37,16 @@ And you will have the jobs/s rate of whatever backend you are using.
 
 == My Results
 
-In my tests, Delayed Job processed 169 jobs/s and Resque processed 113 jobs/s.
+In my tests,
+
+- Delayed Job processed: 169 jobs/s
+- Resque processed: 113 jobs/s.
+- Resque w/ resque-jobs-per-fork plugin @ 5 jobs per fork: 290 jobs/s 
+- Resque w/ resque-jobs-per-fork plugin @ 100 jobs per fork: 609 jobs/s
 
 == Todo:
 
- * Test multiple workers on each backend.
- * Test reading/writing to the database during the test
- * Test reading/writing to Redis during the test
+- Test multiple workers on each backend.
+- Test reading/writing to the database during the test
+- Test reading/writing to Redis during the test
+- Analyze memory usage
