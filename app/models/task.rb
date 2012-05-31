@@ -6,6 +6,6 @@ class Task
 
   def perform(one, two, three)
     Rails.logger.info("#{one} #{two} #{three}")
-    end
+  end
 
 end
