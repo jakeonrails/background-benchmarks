@@ -7,6 +7,7 @@ gem 'rails', '3.2.3'
 
 gem 'pg'
 gem 'resque'
+gem 'resque-jobs-per-fork'
 
 # Gems used only for assets and not required
 # in production environments by default.
